@@ -53,6 +53,18 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
+  lint_docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile.dev
+
   test:
     runs-on: ubuntu-latest
 
