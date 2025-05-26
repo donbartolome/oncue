@@ -1,0 +1,38 @@
+name: oncue
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+      - bundle-data:/usr/local/bundle
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/postgres
+    command: bin/dev
+    tty: true
+
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  bundle-data:
+  db-data:
