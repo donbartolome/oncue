@@ -10,7 +10,8 @@
 
 Studio.find_or_create_by!(
   name: 'Avanti Dance Company',
-  address_line1: '151 Kalmus Dr Ste J7',
+  address_line1: '151 Kalmus Dr',
+  address_line2: 'Ste J7',
   city: 'Costa Mesa',
   state: 'CA',
   zip_code: '92626'
