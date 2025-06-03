@@ -11,3 +11,6 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler -v "${BUNDLER_VERSION}" && bundle install
 
 COPY . .
+
+# Entrypoint prepares the database.
+ENTRYPOINT ["/rails/bin/docker-entrypoint.dev"]
