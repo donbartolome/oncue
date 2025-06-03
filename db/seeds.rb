@@ -7,3 +7,11 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Studio.find_or_create_by!(
+  name: 'Avanti Dance Company',
+  address_line1: '151 Kalmus Dr Ste J7',
+  city: 'Costa Mesa',
+  state: 'CA',
+  zip_code: '92626'
+)
