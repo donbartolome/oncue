@@ -1,12 +1,11 @@
-<%# app/views/studios/index.html.erb %>
-<h1 class="font-bold text-4xl">Studios</h1>
-<%= link_to 'New Studio', new_studio_path, class: "btn" %>
-<ul>
+<h1>Studios</h1>
+
+<%= link_to "New studio", new_studio_path %>
+
+<div id="studios">
   <% @studios.each do |studio| %>
-    <li>
-      <%= link_to studio.name, studio_path(studio) %>
-      <%= link_to 'Edit', edit_studio_path(studio) %>
-      <%= link_to 'Destroy', studio_path(studio), method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
+    <div>
+      <%= link_to studio.name, studio %>
+    </div>
   <% end %>
-</ul>
+</div>
