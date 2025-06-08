@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :articles
   get "studios/index"
   get "studios/new"
   get "studios/create"
