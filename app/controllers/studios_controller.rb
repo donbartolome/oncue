@@ -12,7 +12,7 @@ class StudiosController < ApplicationController
   def create
     @studio = Studio.new(studio_params)
     if @studio.save
-      redirect_to @studio, notice: 'Studio was successfully created.'
+      redirect_to @studio, notice: "Studio was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class StudiosController < ApplicationController
 
   def update
     if @studio.update(studio_params)
-      redirect_to @studio, notice: 'Studio was successfully updated.'
+      redirect_to @studio, notice: "Studio was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -36,7 +36,7 @@ class StudiosController < ApplicationController
 
   def destroy
     @studio.destroy
-    redirect_to studios_path, notice: 'Studio was successfully destroyed.'
+    redirect_to studios_path, notice: "Studio was successfully destroyed."
   end
 
   private

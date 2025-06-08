@@ -23,7 +23,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create studio" do
-    assert_difference('Studio.count') do
+    assert_difference("Studio.count") do
       post studios_url, params: { studio: {
         name: "Another Studio",
         address_line1: "456 Side St",
@@ -56,7 +56,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy studio" do
-    assert_difference('Studio.count', -1) do
+    assert_difference("Studio.count", -1) do
       delete studio_url(@studio)
     end
 
