@@ -1,0 +1,11 @@
+<h1>Studios</h1>
+
+<%= link_to "New studio", new_studio_path %>
+
+<div id="studios">
+  <% @studios.each do |studio| %>
+    <div>
+      <%= link_to studio.name, studio %>
+    </div>
+  <% end %>
+</div>
