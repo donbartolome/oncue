@@ -29,9 +29,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/rails
-      - bundle-data:/usr/local/bundle
     tty: true
 
 volumes:
-  bundle-data:
   db-data:

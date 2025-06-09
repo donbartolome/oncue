@@ -1,6 +1,6 @@
 <h1>Studios</h1>
 
-<%= link_to "New studio", new_studio_path %>
+<%= link_to "New studio", new_studio_path if authenticated? %>
 
 <div id="studios">
   <% @studios.each do |studio| %>

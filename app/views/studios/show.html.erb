@@ -1,5 +1,7 @@
 <h1><%= @studio.name %></h1>
 
 <%= link_to "Back", studios_path %>
-<%= link_to "Edit", edit_studio_path(@studio) %>
-<%= button_to "Delete", @studio, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+<% if authenticated? %>
+  <%= link_to "Edit", edit_studio_path(@studio) %>
+  <%= button_to "Delete", @studio, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+<% end %>

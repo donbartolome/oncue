@@ -8,11 +8,17 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+User.find_or_create_by!(
+  email_address: "donbartolome@gmail.com",
+  password: "password",
+  password_confirmation: "password",
+)
+
 Studio.find_or_create_by!(
-  name: 'Avanti Dance Company',
-  address_line1: '151 Kalmus Dr',
-  address_line2: 'Ste J7',
-  city: 'Costa Mesa',
-  state: 'CA',
-  zip_code: '92626'
+  name: "Avanti Dance Company",
+  address_line1: "151 Kalmus Dr",
+  address_line2: "Ste J7",
+  city: "Costa Mesa",
+  state: "CA",
+  zip_code: "92626"
 )
