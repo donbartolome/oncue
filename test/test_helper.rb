@@ -11,5 +11,10 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+
+    # Helper method to sign in a user for integration tests
+    def sign_in_as(user)
+      post session_path, params: { email_address: user.email_address, password: "password" }
+    end
   end
 end

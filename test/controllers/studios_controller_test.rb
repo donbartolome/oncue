@@ -19,17 +19,14 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    # sign_in_as(@user)
+    sign_in_as(@user)
 
-    get new_studio_url, headers: auth_headers(@user)
+    get new_studio_url
     assert_response :success
   end
 
-  # post articles_url, params: { article: { body: "Rails is awesome!", title: "Hello Rails" } }, headers: { Authorization: ActionController::HttpAuthentication::Basic.encode_credentials("dhh", "secret") }
-
-
   test "should create studio" do
-    # sign_in_as(@user)
+    sign_in_as(@user)
 
     assert_difference("Studio.count") do
       post studios_url, params: { studio: {
@@ -39,7 +36,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
         city: "Otherville",
         state: "OS",
         zip_code: "67890"
-      } }, headers: auth_headers(@user)
+      } }
     end
 
     assert_redirected_to studio_url(Studio.last)
@@ -51,16 +48,16 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    # sign_in_as(@user)
+    sign_in_as(@user)
 
-    get edit_studio_url(@studio), headers: auth_headers(@user)
+    get edit_studio_url(@studio)
     assert_response :success
   end
 
   test "should update studio" do
-    # sign_in_as(@user)
+    sign_in_as(@user)
 
-    patch studio_url(@studio), params: { studio: { name: "Updated Studio" } }, headers: auth_headers(@user)
+    patch studio_url(@studio), params: { studio: { name: "Updated Studio" } }
     assert_redirected_to studio_url(@studio)
 
     @studio.reload
@@ -68,27 +65,12 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy studio" do
-    # sign_in_as(@user)
+    sign_in_as(@user)
 
     assert_difference("Studio.count", -1) do
-      delete studio_url(@studio), headers: auth_headers(@user)
+      delete studio_url(@studio)
     end
 
     assert_redirected_to studios_url
   end
-
-  private
-
-  # Helper method for signing in a user in tests
-  # def sign_in_as(user)
-  #   post login_url, params: { email_address: user.email_address, password: "password" }
-  # end
-
-  def auth_headers(user)
-    {
-      "Authorization" => ActionController::HttpAuthentication::Basic.encode_credentials(
-        user.email_address, "password"
-      )
-    }
-    end
 end
