@@ -15,16 +15,12 @@
 <%= form_with url: session_url, class: "space-y-4" do |form| %>
   <div class="form-control">
     <%= form.label :email_address, "Email address", class: "label" %>
-    <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
-                         placeholder: "you@example.com", value: params[:email_address],
-                         class: "input input-bordered w-full" %>
+    <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", class: "input input-bordered w-full" %>
   </div>
 
   <div class="form-control">
     <%= form.label :password, "Password", class: "label" %>
-    <%= form.password_field :password, required: true, autocomplete: "current-password",
-                            placeholder: "••••••••", maxlength: 72,
-                            class: "input input-bordered w-full" %>
+    <%= form.password_field :password, required: true, autocomplete: "current-password", class: "input input-bordered w-full" %>
   </div>
 
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-6">

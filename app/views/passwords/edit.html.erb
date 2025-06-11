@@ -9,16 +9,12 @@
 <%= form_with url: password_path(params[:token]), method: :put, class: "space-y-4" do |form| %>
   <div class="form-control">
     <%= form.label :password, "New password", class: "label" %>
-    <%= form.password_field :password, required: true, autocomplete: "new-password",
-                            placeholder: "••••••••", maxlength: 72,
-                            class: "input input-bordered w-full" %>
+    <%= form.password_field :password, required: true, autocomplete: "new-password", class: "input input-bordered w-full" %>
   </div>
 
   <div class="form-control">
     <%= form.label :password_confirmation, "Confirm new password", class: "label" %>
-    <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password",
-                            placeholder: "••••••••", maxlength: 72,
-                            class: "input input-bordered w-full" %>
+    <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "input input-bordered w-full" %>
   </div>
 
   <%= form.submit "Save", class: "btn btn-primary w-full sm:w-auto" %>
