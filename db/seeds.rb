@@ -9,9 +9,8 @@
 #   end
 
 User.find_or_create_by!(
-  email_address: "donbartolome@gmail.com",
-  password: "password",
-  password_confirmation: "password",
+  email_address: "admin@example.com",
+  password_digest: BCrypt::Password.create("gNX$KqB3$hcLcYgN"),
 )
 
 Studio.find_or_create_by!(

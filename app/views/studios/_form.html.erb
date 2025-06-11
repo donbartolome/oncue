@@ -1,35 +1,36 @@
-<%= form_with model: @studio do |form| %>
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+<%= form_with model: @studio, class: "space-y-4" do |form| %>
+  <div class="form-control">
+    <%= form.label :name, class: "label" %>
+    <%= form.text_field :name, class: "input input-bordered w-full" %>
   </div>
 
-  <div>
-    <%= form.label :address_line1 %>
-    <%= form.text_field :address_line1 %>
+  <div class="form-control">
+    <%= form.label :address_line1, class: "label" %>
+    <%= form.text_field :address_line1, class: "input input-bordered w-full" %>
   </div>
 
-  <div>
-    <%= form.label :address_line2 %>
-    <%= form.text_field :address_line2 %>
+  <div class="form-control">
+    <%= form.label :address_line2, class: "label" %>
+    <%= form.text_field :address_line2, class: "input input-bordered w-full" %>
   </div>
 
-  <div>
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+  <div class="form-control">
+    <%= form.label :city, class: "label" %>
+    <%= form.text_field :city, class: "input input-bordered w-full" %>
   </div>
 
-  <div>
-    <%= form.label :state %>
-    <%= form.text_field :state %>
+  <div class="form-control">
+    <%= form.label :state, class: "label" %>
+    <%= form.text_field :state, class: "input input-bordered w-full" %>
   </div>
 
-  <div>
-    <%= form.label :zip_code %>
-    <%= form.text_field :zip_code %>
+  <div class="form-control">
+    <%= form.label :zip_code, class: "label" %>
+    <%= form.text_field :zip_code, class: "input input-bordered w-full" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="flex gap-2 mt-4">
+    <%= form.submit "Save", class: "btn btn-primary w-full sm:w-auto" %>
+    <%= link_to "Cancel", studios_path, class: "btn btn-ghost" %>
   </div>
 <% end %>
