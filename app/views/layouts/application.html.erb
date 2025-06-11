@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Oncue" %></title>
+    <title><%= content_for(:title) || t("app_name") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -25,7 +25,7 @@
   <body>
     <nav class="navbar bg-base-100 shadow mb-8">
       <div class="navbar-start">
-        <%= link_to "Oncue", root_path, class: "btn btn-ghost text-xl" %>
+        <%= link_to t("app_name"), root_path, class: "btn btn-ghost text-xl" %>
       </div>
 
       <div class="navbar-end">
