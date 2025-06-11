@@ -23,14 +23,27 @@
   </head>
 
   <body>
-    <nav>
-      <%= link_to "Home", root_path %>
-      <%= link_to "Login", new_session_path unless authenticated? %>
-      <%= button_to "Log out", session_path, method: :delete if authenticated? %>
+    <nav class="navbar bg-base-100 shadow mb-8">
+      <div class="navbar-start">
+        <%= link_to "Oncue", root_path, class: "btn btn-ghost text-xl" %>
+      </div>
+
+      <div class="navbar-end">
+        <% unless authenticated? %>
+          <%= link_to "Login", new_session_path, class: "btn btn-primary btn-sm" %>
+        <% end %>
+        <% if authenticated? %>
+          <%= button_to "Log out", session_path, method: :delete, class: "btn btn-error btn-sm" %>
+        <% end %>
+      </div>
     </nav>
 
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+    <main class="container mx-auto px-5 max-w-screen-md">
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <%= yield %>
+        </div>
+      </div>
     </main>
   </body>
 </html>
