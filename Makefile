@@ -25,8 +25,4 @@ lint:
 scan:
 	$(dc) exec $(SERVICE) bin/brakeman
 
-# Clean up
-clean:
-	$(dc) down -v
-
-.PHONY: up down bash test lint clean scan
+.PHONY: up down bash test lint scan
