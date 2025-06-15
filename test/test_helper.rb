@@ -4,6 +4,9 @@ require "rails/test_help"
 
 module ActiveSupport
   class TestCase
+    # Include FactoryBot methods to simplify factory usage in tests
+    include FactoryBot::Syntax::Methods
+
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 
