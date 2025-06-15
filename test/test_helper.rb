@@ -16,5 +16,7 @@ module ActiveSupport
     def sign_in_as(user)
       post session_path, params: { email_address: user.email_address, password: "password" }
     end
+
+    include FactoryBot::Syntax::Methods
   end
 end

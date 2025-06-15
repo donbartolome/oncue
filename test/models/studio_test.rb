@@ -2,13 +2,7 @@ require "test_helper"
 
 class StudioTest < ActiveSupport::TestCase
   def setup
-    @studio = Studio.new(
-      name: "Studio One",
-      address_line1: "123 Main St",
-      city: "Metropolis",
-      state: "NY",
-      zip_code: "12345"
-    )
+    @studio = build(:studio)
   end
 
   test "is valid with all required attributes" do
@@ -23,7 +17,7 @@ class StudioTest < ActiveSupport::TestCase
 
   test "is invalid with a duplicate name" do
     @studio.save!
-    duplicate = @studio.dup
+    duplicate = build(:studio, name: @studio.name)
     assert_not duplicate.valid?
     assert_includes duplicate.errors[:name], "has already been taken"
   end
