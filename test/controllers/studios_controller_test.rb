@@ -2,15 +2,8 @@ require "test_helper"
 
 class StudiosControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:admin)
-    @studio = Studio.create!(
-      name: "Test Studio",
-      address_line1: "123 Main St",
-      address_line2: "",
-      city: "Testville",
-      state: "TS",
-      zip_code: "12345"
-    )
+    @user = create(:user)
+    @studio = create(:studio)
   end
 
   # index
@@ -37,14 +30,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@user)
 
     assert_difference("Studio.count") do
-      post studios_url, params: { studio: {
-        name: "Another Studio",
-        address_line1: "456 Side St",
-        address_line2: "",
-        city: "Otherville",
-        state: "OS",
-        zip_code: "67890"
-      } }
+      post studios_url, params: { studio: attributes_for(:studio) }
     end
 
     assert_redirected_to studio_url(Studio.last)
@@ -62,14 +48,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create studio when not signed in" do
     assert_no_difference("Studio.count") do
-      post studios_url, params: { studio: {
-        name: "No Auth Studio",
-        address_line1: "1 Nowhere",
-        address_line2: "",
-        city: "Nowhere",
-        state: "NA",
-        zip_code: "00000"
-      } }
+      post studios_url, params: { studio: attributes_for(:studio) }
     end
 
     assert_response :redirect
