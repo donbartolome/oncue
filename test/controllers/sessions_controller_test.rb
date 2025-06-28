@@ -1,16 +1,35 @@
 require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  test "should log in with valid credentials" do
-    user = create(:user, password: "password")
-    post session_path, params: { email_address: user.email_address, password: "password" }
-    assert_redirected_to root_path
-    assert_equal user.id, session[:user_id]
+  setup do
+    @user = create(:user, password: "password")
   end
 
-  test "should not log in with invalid credentials" do
-    post session_path, params: { email_address: "wrong@example.com", password: "wrong" }
-    # assert_response :unprocessable_entity
-    assert_redirected_to new_session_path
+  # new
+  test "should get new" do
+    get new_session_url
+    assert_response :success
+  end
+
+  # create
+  test "should create session with valid credentials" do
+    sign_in_as(@user)
+
+    assert_response :redirect
+    assert_redirected_to root_url
+  end
+
+  test "should not create session with invalid credentials" do
+    post session_url, params: { email_address: @user.email_address, password: "wrongpassword" }
+    assert_redirected_to new_session_url
+  end
+
+  # destroy
+  test "should destroy session" do
+    sign_in_as(@user)
+
+    delete session_url
+    assert_response :redirect
+    assert_redirected_to new_session_url
   end
 end
