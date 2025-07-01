@@ -41,6 +41,31 @@ class StudiosController < ApplicationController
     redirect_to studios_path, notice: "Studio was successfully destroyed."
   end
 
+  def roster
+    @studio = Studio.find(params[:id])
+    @roster = @studio.people.joins(:roles).where(roles: { role: :dancer })
+  end
+
+  def new_dancer
+    @studio = Studio.find(params[:id])
+    @dancer = @studio.people.new
+  end
+
+  def add_dancer
+    @studio = Studio.find(params[:id])
+    @dancer = Person.new(person_params)
+
+    if @dancer.save
+      if @studio.add_dancer(@dancer)
+        redirect_to roster_studio_path(@studio), notice: "Dancer was successfully added."
+      else
+        render :new_dancer, status: :unprocessable_entity
+      end
+    else
+      render :new_dancer, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def set_studio
@@ -49,5 +74,9 @@ class StudiosController < ApplicationController
 
   def studio_params
     params.expect(studio: [ :name, :address_line1, :address_line2, :city, :state, :zip_code ])
+  end
+
+  def person_params
+    params.expect(person: [ :first_name, :last_name ])
   end
 end

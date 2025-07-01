@@ -1,0 +1,16 @@
+<%= form_with model: @dancer, url:add_dancer_studio_path,  class: "space-y-4" do |form| %>
+  <div class="form-control">
+    <%= form.label :first_name, class: "label" %>
+    <%= form.text_field :first_name, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control">
+    <%= form.label :last_name, class: "label" %>
+    <%= form.text_field :last_name, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="flex gap-2 mt-4">
+    <%= form.submit "Save", class: "btn btn-primary w-full sm:w-auto" %>
+    <%= link_to "Cancel", studios_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>

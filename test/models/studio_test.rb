@@ -15,11 +15,23 @@ class StudioTest < ActiveSupport::TestCase
     assert_includes @studio.errors[:name], "can't be blank"
   end
 
-  test "is invalid with a duplicate name" do
+  test "is invalid with a duplicate name in the same city and state" do
     @studio.save!
-    duplicate = build(:studio, name: @studio.name)
+    duplicate = build(:studio, name: @studio.name, city: @studio.city, state: @studio.state)
     assert_not duplicate.valid?
-    assert_includes duplicate.errors[:name], "has already been taken"
+    assert_includes duplicate.errors[:name], "should be unique within the same city and state"
+  end
+
+  test "is valid with a duplicate name in a different city" do
+    @studio.save!
+    other_city = build(:studio, name: @studio.name, city: "DifferentCity", state: @studio.state)
+    assert other_city.valid?
+  end
+
+  test "is valid with a duplicate name in a different state" do
+    @studio.save!
+    other_state = build(:studio, name: @studio.name, city: @studio.city, state: "ZZ")
+    assert other_state.valid?
   end
 
   test "is invalid without address_line1" do

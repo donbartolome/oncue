@@ -13,11 +13,55 @@ User.find_or_create_by!(
   password_digest: BCrypt::Password.create("gNX$KqB3$hcLcYgN"),
 )
 
-Studio.find_or_create_by!(
+avanti = Studio.find_or_create_by!(
   name: "Avanti Dance Company",
   address_line1: "151 Kalmus Dr",
   address_line2: "Ste J7",
   city: "Costa Mesa",
   state: "CA",
   zip_code: "92626"
+)
+
+taryn = Person.find_or_create_by!(
+  first_name: "Taryn",
+  last_name: "Chavez"
+)
+
+Role.find_or_create_by!(
+  person: taryn,
+  organization: avanti,
+  role: :owner
+)
+
+ailah = Person.find_or_create_by!(
+  first_name: "Ailah",
+  last_name: "Medina"
+)
+
+Role.find_or_create_by!(
+  person: ailah,
+  organization: avanti,
+  role: :dancer
+)
+
+aurelia = Person.find_or_create_by!(
+  first_name: "Aurelia",
+  last_name: "Coker"
+)
+
+Role.find_or_create_by!(
+  person: aurelia,
+  organization: avanti,
+  role: :dancer
+)
+
+kylie = Person.find_or_create_by!(
+  first_name: "Kylie Sophia",
+  last_name: "Bartolome"
+)
+
+Role.find_or_create_by!(
+  person: kylie,
+  organization: avanti,
+  role: :dancer
 )
