@@ -1,0 +1,24 @@
+admin:
+  name: Admin
+  allowed_scope_types:
+    - Studio
+
+owner:
+  name: Owner
+  allowed_scope_types:
+    - Studio
+
+teacher:
+  name: Teacher
+  allowed_scope_types:
+    - Studio
+
+parent:
+  name: Parent
+  allowed_scope_types:
+    - Studio
+
+dancer:
+  name: Dancer
+  allowed_scope_types:
+    - Studio
