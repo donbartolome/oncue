@@ -10,20 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_08_235909) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_01_213510) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
-  create_table "sessions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "ip_address"
-    t.string "user_agent"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_sessions_on_user_id"
-  end
-
-  create_table "studios", force: :cascade do |t|
+  create_table "organizations", force: :cascade do |t|
+    t.string "type", null: false
     t.string "name", null: false
     t.string "address_line1", null: false
     t.string "address_line2"
@@ -32,7 +24,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_08_235909) do
     t.string "zip_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_studios_on_name", unique: true
+    t.index ["name", "city", "state"], name: "index_organizations_on_name_and_city_and_state", unique: true
+    t.index ["type"], name: "index_organizations_on_type"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "ip_address"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
