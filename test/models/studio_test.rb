@@ -9,40 +9,119 @@ class StudioTest < ActiveSupport::TestCase
     assert @studio.valid?
   end
 
-  test "is invalid without a name" do
+  test "is invalid without name" do
     @studio.name = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:name], "can't be blank"
   end
 
-  test "is invalid with a duplicate name" do
+  test "is valid with duplicate name in different state" do
     @studio.save!
-    duplicate = build(:studio, name: @studio.name)
-    assert_not duplicate.valid?
-    assert_includes duplicate.errors[:name], "has already been taken"
+
+    other_state = build(:studio, name: @studio.name, city: @studio.city, state: "ZZ")
+
+    assert other_state.valid?
   end
 
   test "is invalid without address_line1" do
     @studio.address_line1 = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:address_line1], "can't be blank"
   end
 
   test "is invalid without city" do
     @studio.city = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:city], "can't be blank"
   end
 
   test "is invalid without state" do
     @studio.state = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:state], "can't be blank"
   end
 
   test "is invalid without zip_code" do
     @studio.zip_code = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:zip_code], "can't be blank"
+  end
+
+  test "is invalid with duplicate name in same city and state" do
+    @studio.save!
+
+    duplicate = build(:studio, name: @studio.name, city: @studio.city, state: @studio.state)
+
+    assert_not duplicate.valid?
+    assert_includes duplicate.errors[:name], "should be unique within the same city and state"
+  end
+
+  test "is valid with duplicate name in different city" do
+    @studio.save!
+
+    other_city = build(:studio, name: @studio.name, city: "DifferentCity", state: @studio.state)
+
+    assert other_city.valid?
+  end
+
+  test "add_dancer adds dancer role for person" do
+    @studio.save!
+
+    person = create(:person)
+
+    assert_difference -> { person.roles.where(organization: @studio, role: :dancer).count }, 1 do
+      result = @studio.add_dancer(person)
+
+      assert result.persisted?
+      assert_equal :dancer, result.role.to_sym
+      assert_equal @studio, result.organization
+    end
+  end
+
+  test "add_dancer does not add duplicate dancer role" do
+    @studio.save!
+
+    person = create(:person)
+    @studio.add_dancer(person)
+
+    assert_no_difference -> { person.roles.where(organization: @studio, role: :dancer).count } do
+      result = @studio.add_dancer(person)
+
+      assert_equal false, result
+      assert_includes @studio.errors[:base], "Person is already a dancer in this studio."
+    end
+  end
+
+  test "add_owner adds owner role for person" do
+    @studio.save!
+
+    person = create(:person)
+
+    assert_difference -> { person.roles.where(organization: @studio, role: :owner).count }, 1 do
+      result = @studio.add_owner(person)
+
+      assert result.persisted?
+      assert_equal :owner, result.role.to_sym
+      assert_equal @studio, result.organization
+    end
+  end
+
+  test "add_owner does not add duplicate owner role" do
+    @studio.save!
+
+    person = create(:person)
+    @studio.add_owner(person)
+
+    assert_no_difference -> { person.roles.where(organization: @studio, role: :owner).count } do
+      result = @studio.add_owner(person)
+
+      assert_equal false, result
+      assert_includes @studio.errors[:base], "Person is already an owner of this studio."
+    end
   end
 end
