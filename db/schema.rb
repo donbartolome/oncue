@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_01_231410) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_11_191408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -35,6 +35,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_231410) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.bigint "person_id", null: false
+    t.bigint "organization_id", null: false
+    t.integer "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_roles_on_organization_id"
+    t.index ["person_id", "organization_id", "role"], name: "index_roles_on_person_id_and_organization_id_and_role", unique: true
+    t.index ["person_id"], name: "index_roles_on_person_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "ip_address"
@@ -52,5 +63,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_231410) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "roles", "organizations"
+  add_foreign_key "roles", "people"
   add_foreign_key "sessions", "users"
 end
