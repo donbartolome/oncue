@@ -13,4 +13,5 @@ class Role < ApplicationRecord
   }
 
   validates :role, presence: true
+  validates :person, uniqueness: { scope: [:organization, :role] }
 end
