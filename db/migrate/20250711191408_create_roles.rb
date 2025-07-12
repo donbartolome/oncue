@@ -7,6 +7,6 @@ class CreateRoles < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :roles, [:person_id, :organization_id, :role], unique: true
+    add_index :roles, [ :person_id, :organization_id, :role ], unique: true
   end
 end
