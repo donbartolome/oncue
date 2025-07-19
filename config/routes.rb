@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :studios do
     member do
       get "roster"
+      get "new_dancer"
     end
   end
 

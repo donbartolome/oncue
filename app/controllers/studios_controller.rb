@@ -43,7 +43,7 @@ class StudiosController < ApplicationController
 
   def roster
     @studio = Studio.find(params[:id])
-    @roster = @studio.people.order(:role)
+    @roster = @studio.people.joins(:roles).where(roles: { role: :dancer })
   end
 
   private

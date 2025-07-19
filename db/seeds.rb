@@ -33,6 +33,28 @@ Role.find_or_create_by!(
   role: :owner
 )
 
+ailah = Person.find_or_create_by!(
+  first_name: "Ailah",
+  last_name: "Medina"
+)
+
+Role.find_or_create_by!(
+  person: ailah,
+  organization: avanti,
+  role: :dancer
+)
+
+aurelia = Person.find_or_create_by!(
+  first_name: "Aurelia",
+  last_name: "Coker"
+)
+
+Role.find_or_create_by!(
+  person: aurelia,
+  organization: avanti,
+  role: :dancer
+)
+
 kylie = Person.find_or_create_by!(
   first_name: "Kylie Sophia",
   last_name: "Bartolome"
