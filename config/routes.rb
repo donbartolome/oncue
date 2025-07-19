@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
 
   # Studio routes
-  resources :studios
+  resources :studios do
+    member do
+      get "roster"
+    end
+  end
 
   # Defines the root path route ("/")
   root "studios#index"

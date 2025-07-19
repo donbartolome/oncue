@@ -41,6 +41,11 @@ class StudiosController < ApplicationController
     redirect_to studios_path, notice: "Studio was successfully destroyed."
   end
 
+  def roster
+    @studio = Studio.find(params[:id])
+    @roster = @studio.people.order(:role)
+  end
+
   private
 
   def set_studio
