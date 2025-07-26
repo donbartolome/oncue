@@ -20,4 +20,10 @@ class PersonTest < ActiveSupport::TestCase
     assert_not @person.valid?
     assert_includes @person.errors[:last_name], "can't be blank"
   end
+
+  test "full_name returns first and last name concatenated" do
+    @person.first_name = "Ada"
+    @person.last_name = "Lovelace"
+    assert_equal "Ada Lovelace", @person.full_name
+  end
 end
