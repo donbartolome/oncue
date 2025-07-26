@@ -146,4 +146,93 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
     delete studio_url(-1)
     assert_response :not_found
   end
+
+  # roster
+  test "should get roster" do
+    sign_in_as(@user)
+
+    dancer = create(:person)
+    @studio.add_dancer(dancer)
+    get roster_studio_url(@studio)
+    assert_response :success
+    assert_select "body", /#{dancer.first_name}/
+  end
+
+  test "should redirect roster when not signed in" do
+    get roster_studio_url(@studio)
+    assert_response :redirect
+  end
+
+  test "should return 404 for roster with invalid id" do
+    sign_in_as(@user)
+
+    get roster_studio_url(-1)
+    assert_response :not_found
+  end
+
+  # new_dancer
+  test "should get new_dancer" do
+    sign_in_as(@user)
+
+    get new_dancer_studio_url(@studio)
+    assert_response :success
+  end
+
+  test "should redirect new_dancer when not signed in" do
+    get new_dancer_studio_url(@studio)
+    assert_response :redirect
+  end
+
+  test "should return 404 for new_dancer with invalid id" do
+    sign_in_as(@user)
+
+    get new_dancer_studio_url(-1)
+    assert_response :not_found
+  end
+
+  # add_dancer
+  test "should add dancer and redirect to roster" do
+    sign_in_as(@user)
+
+    dancer_attrs = attributes_for(:person)
+    assert_difference("@studio.people.count") do
+      post add_dancer_studio_url(@studio), params: { person: dancer_attrs }
+    end
+    assert_redirected_to roster_studio_url(@studio)
+  end
+
+  test "should redirect add_dancer when not signed in" do
+    dancer_attrs = attributes_for(:person)
+    assert_no_difference("@studio.people.count") do
+      post add_dancer_studio_url(@studio), params: { person: dancer_attrs }
+    end
+    assert_response :redirect
+  end
+
+  test "should not add dancer with invalid params" do
+    sign_in_as(@user)
+
+    assert_no_difference("@studio.people.count") do
+      post add_dancer_studio_url(@studio), params: { person: { first_name: "", last_name: "" } }
+    end
+    assert_response :unprocessable_entity
+  end
+
+  test "should not add duplicate dancer" do
+    sign_in_as(@user)
+
+    dancer = create(:person)
+    @studio.add_dancer(dancer)
+    assert_no_difference("@studio.people.count") do
+      post add_dancer_studio_url(@studio), params: { person: { first_name: dancer.first_name, last_name: dancer.last_name } }
+    end
+    assert_response :unprocessable_entity
+  end
+
+  test "should return 404 for add_dancer with invalid id" do
+    sign_in_as(@user)
+
+    post add_dancer_studio_url(-1), params: { person: attributes_for(:person) }
+    assert_response :not_found
+  end
 end

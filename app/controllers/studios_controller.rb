@@ -53,14 +53,17 @@ class StudiosController < ApplicationController
 
   def add_dancer
     @studio = Studio.find(params[:id])
-    @dancer = Person.new(person_params)
+    @dancer = Person.find_or_initialize_by(first_name: person_params[:first_name], last_name: person_params[:last_name])
 
-    if @dancer.save
-      if @studio.add_dancer(@dancer)
-        redirect_to roster_studio_path(@studio), notice: "Dancer was successfully added."
-      else
-        render :new_dancer, status: :unprocessable_entity
+    if @dancer.new_record?
+      @dancer.assign_attributes(person_params)
+      if !@dancer.save
+        return render :new_dancer, status: :unprocessable_entity
       end
+    end
+
+    if @studio.add_dancer(@dancer)
+      redirect_to roster_studio_path(@studio), notice: "Dancer was successfully added."
     else
       render :new_dancer, status: :unprocessable_entity
     end
