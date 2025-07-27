@@ -9,21 +9,21 @@ class PersonTest < ActiveSupport::TestCase
     assert @person.valid?
   end
 
-  test "is invalid without a first name" do
+  test "is invalid without first name" do
     @person.first_name = nil
 
     assert_not @person.valid?
     assert_includes @person.errors[:first_name], "can't be blank"
   end
 
-  test "is invalid without a last name" do
+  test "is invalid without last name" do
     @person.last_name = nil
 
     assert_not @person.valid?
     assert_includes @person.errors[:last_name], "can't be blank"
   end
 
-  test "full_name returns first and last name concatenated" do
+  test "returns full name as first and last name concatenated" do
     @person.first_name = "Ada"
     @person.last_name = "Lovelace"
 

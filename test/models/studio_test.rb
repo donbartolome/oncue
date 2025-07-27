@@ -9,14 +9,14 @@ class StudioTest < ActiveSupport::TestCase
     assert @studio.valid?
   end
 
-  test "is invalid without a name" do
+  test "is invalid without name" do
     @studio.name = nil
 
     assert_not @studio.valid?
     assert_includes @studio.errors[:name], "can't be blank"
   end
 
-  test "is valid with a duplicate name in a different state" do
+  test "is valid with duplicate name in different state" do
     @studio.save!
 
     other_state = build(:studio, name: @studio.name, city: @studio.city, state: "ZZ")
@@ -52,7 +52,7 @@ class StudioTest < ActiveSupport::TestCase
     assert_includes @studio.errors[:zip_code], "can't be blank"
   end
 
-  test "is invalid with a duplicate name in the same city and state" do
+  test "is invalid with duplicate name in same city and state" do
     @studio.save!
 
     duplicate = build(:studio, name: @studio.name, city: @studio.city, state: @studio.state)
@@ -61,7 +61,7 @@ class StudioTest < ActiveSupport::TestCase
     assert_includes duplicate.errors[:name], "should be unique within the same city and state"
   end
 
-  test "is valid with a duplicate name in a different city" do
+  test "is valid with duplicate name in different city" do
     @studio.save!
 
     other_city = build(:studio, name: @studio.name, city: "DifferentCity", state: @studio.state)
@@ -69,7 +69,7 @@ class StudioTest < ActiveSupport::TestCase
     assert other_city.valid?
   end
 
-  test "add_dancer adds a dancer role for a person" do
+  test "add_dancer adds dancer role for person" do
     @studio.save!
 
     person = create(:person)
