@@ -8,6 +8,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   # new
   test "should get new" do
     get new_session_url
+
     assert_response :success
   end
 
@@ -21,6 +22,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create session with invalid credentials" do
     post session_url, params: { email_address: @user.email_address, password: "wrongpassword" }
+
     assert_redirected_to new_session_url
   end
 
@@ -29,6 +31,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@user)
 
     delete session_url
+
     assert_response :redirect
     assert_redirected_to new_session_url
   end

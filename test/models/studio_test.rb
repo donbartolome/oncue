@@ -11,58 +11,72 @@ class StudioTest < ActiveSupport::TestCase
 
   test "is invalid without a name" do
     @studio.name = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:name], "can't be blank"
   end
 
   test "is valid with a duplicate name in a different state" do
     @studio.save!
+
     other_state = build(:studio, name: @studio.name, city: @studio.city, state: "ZZ")
+
     assert other_state.valid?
   end
 
   test "is invalid without address_line1" do
     @studio.address_line1 = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:address_line1], "can't be blank"
   end
 
   test "is invalid without city" do
     @studio.city = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:city], "can't be blank"
   end
 
   test "is invalid without state" do
     @studio.state = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:state], "can't be blank"
   end
 
   test "is invalid without zip_code" do
     @studio.zip_code = nil
+
     assert_not @studio.valid?
     assert_includes @studio.errors[:zip_code], "can't be blank"
   end
 
   test "is invalid with a duplicate name in the same city and state" do
     @studio.save!
+
     duplicate = build(:studio, name: @studio.name, city: @studio.city, state: @studio.state)
+
     assert_not duplicate.valid?
     assert_includes duplicate.errors[:name], "should be unique within the same city and state"
   end
 
   test "is valid with a duplicate name in a different city" do
     @studio.save!
+
     other_city = build(:studio, name: @studio.name, city: "DifferentCity", state: @studio.state)
+
     assert other_city.valid?
   end
 
   test "add_dancer adds a dancer role for a person" do
     @studio.save!
+
     person = create(:person)
+
     assert_difference -> { person.roles.where(organization: @studio, role: :dancer).count }, 1 do
       result = @studio.add_dancer(person)
+
       assert result.persisted?
       assert_equal :dancer, result.role.to_sym
       assert_equal @studio, result.organization
@@ -71,10 +85,13 @@ class StudioTest < ActiveSupport::TestCase
 
   test "add_dancer does not add duplicate dancer role" do
     @studio.save!
+
     person = create(:person)
     @studio.add_dancer(person)
+
     assert_no_difference -> { person.roles.where(organization: @studio, role: :dancer).count } do
       result = @studio.add_dancer(person)
+
       assert_equal false, result
       assert_includes @studio.errors[:base], "Person is already a dancer in this studio."
     end
