@@ -9,19 +9,21 @@ class UserTest < ActiveSupport::TestCase
     assert @user.valid?
   end
 
-  test "is invalid without an email address" do
+  test "is invalid without email address" do
     @user.email_address = nil
+
     assert_not @user.valid?
     assert_includes @user.errors[:email_address], "can't be blank"
   end
 
-  test "is invalid without a password" do
+  test "is invalid without password" do
     @user.password_digest = nil
+
     assert_not @user.valid?
     assert_includes @user.errors[:password_digest], "can't be blank"
   end
 
-  test "should authenticate with valid password" do
+  test "authenticates with valid password" do
     assert @user.authenticate("password")
   end
 end
