@@ -1,6 +1,6 @@
-class Role < ApplicationRecord
+class StudioMembership < ApplicationRecord
   belongs_to :person
-  belongs_to :organization
+  belongs_to :studio
 
   enum :role, {
     owner: 0,
@@ -13,5 +13,5 @@ class Role < ApplicationRecord
   }
 
   validates :role, presence: true
-  validates :person, uniqueness: { scope: [ :organization, :role ] }
+  validates :person, uniqueness: { scope: [ :studio, :role ] }
 end
