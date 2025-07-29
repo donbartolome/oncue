@@ -1,6 +1,6 @@
 class Person < ApplicationRecord
-  has_many :roles, dependent: :destroy
-  has_many :organizations, through: :roles
+  has_many :organization_memberships, dependent: :destroy
+  has_many :organizations, through: :organization_memberships
 
   validates :first_name, :last_name, presence: true
 

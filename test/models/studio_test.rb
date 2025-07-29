@@ -74,7 +74,7 @@ class StudioTest < ActiveSupport::TestCase
 
     person = create(:person)
 
-    assert_difference -> { person.roles.where(organization: @studio, role: :dancer).count }, 1 do
+    assert_difference -> { person.organization_memberships.where(organization: @studio, role: :dancer).count }, 1 do
       result = @studio.add_dancer(person)
 
       assert result.persisted?
@@ -89,7 +89,7 @@ class StudioTest < ActiveSupport::TestCase
     person = create(:person)
     @studio.add_dancer(person)
 
-    assert_no_difference -> { person.roles.where(organization: @studio, role: :dancer).count } do
+    assert_no_difference -> { person.organization_memberships.where(organization: @studio, role: :dancer).count } do
       result = @studio.add_dancer(person)
 
       assert_equal false, result
@@ -102,7 +102,7 @@ class StudioTest < ActiveSupport::TestCase
 
     person = create(:person)
 
-    assert_difference -> { person.roles.where(organization: @studio, role: :owner).count }, 1 do
+    assert_difference -> { person.organization_memberships.where(organization: @studio, role: :owner).count }, 1 do
       result = @studio.add_owner(person)
 
       assert result.persisted?
@@ -117,7 +117,7 @@ class StudioTest < ActiveSupport::TestCase
     person = create(:person)
     @studio.add_owner(person)
 
-    assert_no_difference -> { person.roles.where(organization: @studio, role: :owner).count } do
+    assert_no_difference -> { person.organization_memberships.where(organization: @studio, role: :owner).count } do
       result = @studio.add_owner(person)
 
       assert_equal false, result

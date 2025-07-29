@@ -65,7 +65,7 @@ people_data.each do |attrs|
     when :dancer
       org.add_dancer(person)
     else
-      Role.find_or_create_by!(
+      OrganizationMembership.find_or_create_by!(
         person: person,
         organization: org,
         role: role
