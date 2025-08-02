@@ -57,7 +57,7 @@ class StudiosController < ApplicationController
 
     if @dancer.new_record?
       @dancer.assign_attributes(person_params)
-      unless @dancer.save
+      if !@dancer.save
         return render :new_dancer, status: :unprocessable_entity
       end
     end
