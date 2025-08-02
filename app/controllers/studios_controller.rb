@@ -43,7 +43,7 @@ class StudiosController < ApplicationController
 
   def roster
     @studio = Studio.find(params[:id])
-    @roster = @studio.people.joins(:roles).where(roles: { role: :dancer })
+    @roster = @studio.people.joins(:studio_memberships).where(studio_memberships: { role: :dancer })
   end
 
   def new_dancer
@@ -57,7 +57,7 @@ class StudiosController < ApplicationController
 
     if @dancer.new_record?
       @dancer.assign_attributes(person_params)
-      if !@dancer.save
+      unless @dancer.save
         return render :new_dancer, status: :unprocessable_entity
       end
     end
