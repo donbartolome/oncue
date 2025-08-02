@@ -1,7 +1,7 @@
 class CreateStudios < ActiveRecord::Migration[8.0]
   def change
     create_table :studios do |t|
-      t.string :name, null: false, index: { unique: true }
+      t.string :name, null: false
       t.string :address_line1, null: false
       t.string :address_line2
       t.string :city, null: false
@@ -10,5 +10,6 @@ class CreateStudios < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
+    add_index :studios, [ :name, :city, :state ], unique: true
   end
 end
