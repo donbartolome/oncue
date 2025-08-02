@@ -26,25 +26,23 @@ people_data = [
   {
     first_name: "Taryn",
     last_name: "Chavez",
-    roles: [ { organization: avanti, role: :owner } ]
+    studio_memberships: [ { studio: avanti, role: :owner } ]
   },
   {
     first_name: "Ailah",
     last_name: "Medina",
-    roles: [ { organization: avanti, role: :dancer } ]
-    # add more associations here as needed
+    studio_memberships: [ { studio: avanti, role: :dancer } ]
   },
   {
     first_name: "Aurelia",
     last_name: "Coker",
-    roles: [ { organization: avanti, role: :dancer } ]
+    studio_memberships: [ { studio: avanti, role: :dancer } ]
   },
   {
     first_name: "Kylie Sophia",
     last_name: "Bartolome",
-    roles: [ { organization: avanti, role: :dancer } ]
+    studio_memberships: [ { studio: avanti, role: :dancer } ]
   }
-  # ...add more people as needed...
 ]
 
 people = {}
@@ -55,25 +53,21 @@ people_data.each do |attrs|
     last_name: attrs[:last_name]
   )
   people[person.full_name] = person
-  attrs[:roles].each do |role_attrs|
-    org = role_attrs[:organization]
+  attrs[:studio_memberships].each do |role_attrs|
+    studio = role_attrs[:studio]
     role = role_attrs[:role].to_sym
 
     case role
     when :owner
-      org.add_owner(person)
+      studio.add_owner(person)
     when :dancer
-      org.add_dancer(person)
+      studio.add_dancer(person)
     else
-      OrganizationMembership.find_or_create_by!(
+      StudioMembership.find_or_create_by!(
         person: person,
-        organization: org,
+        studio: studio,
         role: role
       )
     end
   end
-  # Add other associations here if needed, using attrs
 end
-
-# Example: Access a person for further associations
-# people["Ailah Medina"].some_other_association.create!(...)
