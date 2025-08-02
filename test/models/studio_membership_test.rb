@@ -2,7 +2,7 @@ require "test_helper"
 
 class StudioMembershipTest < ActiveSupport::TestCase
   def setup
-    @studio_membership = build(:studio_membership, role: :dancer)
+    @studio_membership = build(:studio_membership)
   end
 
   test "is valid with all required attributes" do
