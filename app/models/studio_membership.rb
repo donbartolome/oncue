@@ -1,6 +1,6 @@
 class StudioMembership < ApplicationRecord
-  belongs_to :person
   belongs_to :studio
+  belongs_to :person
 
   enum :role, {
     owner: 0,
