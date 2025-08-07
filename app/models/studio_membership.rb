@@ -13,5 +13,5 @@ class StudioMembership < ApplicationRecord
   }
 
   validates :role, presence: true
-  validates :role, uniqueness: { scope: [ :studio, :person ] }
+  validates :person, uniqueness: { scope: [ :studio, :role ] }
 end
