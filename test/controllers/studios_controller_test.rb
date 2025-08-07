@@ -46,7 +46,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
       post studios_url, params: { studio: { name: "", address_line1: "", city: "", state: "", zip_code: "" } }
     end
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "does not create studio when not signed in" do
@@ -111,7 +111,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
 
     patch studio_url(@studio), params: { studio: { name: "" } }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
 
     @studio.reload
 
@@ -243,7 +243,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
       post add_dancer_studio_url(@studio), params: { person: { first_name: "", last_name: "" } }
     end
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "does not add duplicate dancer" do
@@ -256,7 +256,7 @@ class StudiosControllerTest < ActionDispatch::IntegrationTest
       post add_dancer_studio_url(@studio), params: { person: { first_name: dancer.first_name, last_name: dancer.last_name } }
     end
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test "returns 404 for add dancer with invalid id" do
