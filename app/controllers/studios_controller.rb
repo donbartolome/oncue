@@ -16,7 +16,7 @@ class StudiosController < ApplicationController
     if @studio.save
       redirect_to @studio, notice: "Studio was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -32,7 +32,7 @@ class StudiosController < ApplicationController
     if @studio.update(studio_params)
       redirect_to @studio, notice: "Studio was successfully updated."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
@@ -58,14 +58,14 @@ class StudiosController < ApplicationController
     if @dancer.new_record?
       @dancer.assign_attributes(person_params)
       if !@dancer.save
-        return render :new_dancer, status: :unprocessable_entity
+        return render :new_dancer, status: :unprocessable_content
       end
     end
 
     if @studio.add_dancer(@dancer)
       redirect_to roster_studio_path(@studio), notice: "Dancer was successfully added."
     else
-      render :new_dancer, status: :unprocessable_entity
+      render :new_dancer, status: :unprocessable_content
     end
   end
 
