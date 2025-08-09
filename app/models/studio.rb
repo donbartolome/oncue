@@ -1,6 +1,7 @@
 class Studio < ApplicationRecord
   has_many :studio_memberships, dependent: :destroy
   has_many :people, through: :studio_memberships
+  has_many :seasons, dependent: :destroy
 
   validates :name, :address_line1, :city, :state, :zip_code, presence: true
   validates :name, uniqueness: { scope: [ :city, :state ], case_sensitive: false, message: "should be unique within the same city and state" }
@@ -23,5 +24,9 @@ class Studio < ApplicationRecord
     end
 
     person.studio_memberships.create(role: :owner, studio: self)
+  end
+
+  def create_season(name, start_date, end_date)
+    self.seasons.create(name: name, start_date: start_date, end_date: end_date)
   end
 end
