@@ -1,0 +1,2 @@
+module Studio::SeasonsHelper
+end
