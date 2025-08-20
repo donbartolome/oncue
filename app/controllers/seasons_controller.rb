@@ -44,7 +44,7 @@ class SeasonsController < ApplicationController
   def destroy
     @season.destroy!
 
-    redirect_to seasons_path, status: :see_other, notice: "Season was successfully destroyed."
+    redirect_to studio_seasons_path(@season.studio), status: :see_other, notice: "Season was successfully destroyed."
   end
 
   private

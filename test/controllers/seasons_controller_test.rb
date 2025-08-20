@@ -105,7 +105,7 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Season.count", -1) do
       delete season_url(@season)
     end
-    assert_redirected_to studio_seasons_url
+    assert_redirected_to studio_seasons_url(@season.studio)
   end
 
   test "returns 404 for destroy with invalid id" do
