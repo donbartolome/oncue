@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :season do
     sequence(:name) { |n| "Season #{n}" }
 
-
     start_year { Date.current.year }
     end_year   { start_year + 1 }
 

@@ -1,27 +1,28 @@
 class SeasonsController < ApplicationController
   before_action :set_season, only: %i[ show edit update destroy ]
+  before_action :set_studio, only: %i[ index new create ]
 
-  # GET /seasons or /seasons.json
+  # GET /studios/:studio_id/seasons
   def index
-    @seasons = Season.all
+    @seasons = @studio.seasons
   end
 
   # GET /seasons/1 or /seasons/1.json
   def show
   end
 
-  # GET /seasons/new
+  # GET /studios/:studio_id/seasons/new
   def new
-    @season = Season.new
+    @season = @studio.seasons.new
   end
 
   # GET /seasons/1/edit
   def edit
   end
 
-  # POST /seasons or /seasons.json
+  # POST /studios/:studio_id/seasons
   def create
-    @season = Season.new(season_params)
+    @season = @studio.seasons.new(season_params)
 
     respond_to do |format|
       if @season.save
@@ -61,6 +62,10 @@ class SeasonsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_season
       @season = Season.find(params.expect(:id))
+    end
+
+    def set_studio
+      @studio = Studio.find(params.expect(:studio_id))
     end
 
     # Only allow a list of trusted parameters through.
