@@ -7,22 +7,22 @@ class SeasonsController < ApplicationController
     @seasons = @studio.seasons
   end
 
-  # GET /seasons/1 or /seasons/1.json
+  # GET /seasons/:studio_id
   def show
   end
 
   # GET /studios/:studio_id/seasons/new
   def new
-    @season = @studio.seasons.new
+    @season = @studio.seasons.build
   end
 
-  # GET /seasons/1/edit
+  # GET /seasons/:studio_id/edit
   def edit
   end
 
   # POST /studios/:studio_id/seasons
   def create
-    @season = @studio.seasons.new(season_params)
+    @season = @studio.seasons.build(season_params)
 
     if @season.save
       redirect_to @season, notice: "Season was successfully created."
@@ -31,7 +31,7 @@ class SeasonsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /seasons/1 or /seasons/1.json
+  # PATCH/PUT /seasons/:studio_id
   def update
     if @season.update(season_params)
       redirect_to @season, notice: "Season was successfully updated."
@@ -40,7 +40,7 @@ class SeasonsController < ApplicationController
     end
   end
 
-  # DELETE /seasons/1 or /seasons/1.json
+  # DELETE /seasons/:studio_id
   def destroy
     @season.destroy!
 
