@@ -1,0 +1,33 @@
+<%= form_with(model: [studio, season].compact, class: "space-y-4") do |form| %>
+  <% if season.errors.any? %>
+    <div class="alert alert-error">
+      <h2><%= pluralize(season.errors.count, "error") %> prohibited this season from being saved:</h2>
+
+      <ul>
+        <% season.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-control">
+    <%= form.label :name, class: "label" %>
+    <%= form.text_field :name, class: "input input-bordered" %>
+  </div>
+
+  <div class="form-control">
+    <%= form.label :year, class: "label" %>
+    <%= form.number_field :year, class: "input input-bordered" %>
+  </div>
+
+  <div class="mt-4">
+    <%= form.submit class: "btn btn-primary" %>
+    <% if season.persisted? %>
+      <%= link_to "Cancel", season_path(season), class: "btn btn-ghost" %>
+    <% else %>
+      <%= link_to "Cancel", studio_seasons_path(studio), class: "btn btn-ghost" %>
+    <% end %>
+  </div>
+<% end %>
+

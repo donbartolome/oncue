@@ -1,0 +1,12 @@
+<% content_for :title, "Edit Season" %>
+
+<div class="mb-6">
+  <h1 class="text-3xl font-bold">Edit Season</h1>
+</div>
+
+<div class="mb-4">
+  <%= link_to "← Back to Season", season_path(@season), class: "link" %>
+</div>
+
+<%= render "form", season: @season, studio: nil %>
+

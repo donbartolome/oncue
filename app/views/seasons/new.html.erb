@@ -1,0 +1,12 @@
+<% content_for :title, "New Season" %>
+
+<div class="mb-6">
+  <h1 class="text-3xl font-bold">New Season</h1>
+</div>
+
+<div class="mb-4">
+  <%= link_to "← Back to Seasons", studio_seasons_path(@studio), class: "link" %>
+</div>
+
+<%= render "form", season: @season, studio: @studio %>
+

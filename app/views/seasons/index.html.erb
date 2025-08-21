@@ -1,0 +1,21 @@
+<% content_for :title, "Seasons for #{@studio.name}" %>
+
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold"><%= @studio.name %> - Seasons</h1>
+  <%= link_to "New Season", new_studio_season_path(@studio), class: "btn btn-primary" %>
+</div>
+
+<div class="mb-4">
+  <%= link_to "← Back to Studio", studio_path(@studio), class: "link" %>
+</div>
+
+<div id="seasons">
+  <% if @seasons.any? %>
+    <% @seasons.each do |season| %>
+      <%= render "season", season: season %>
+    <% end %>
+  <% else %>
+    <p class="text-center text-gray-500 my-8">No seasons found. Create a new season to get started.</p>
+  <% end %>
+</div>
+
