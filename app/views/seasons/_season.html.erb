@@ -1,13 +1,9 @@
-<div id="<%= dom_id season %>" class="card bg-base-100 shadow-md mb-4">
-  <div class="card-body">
-    <h2 class="card-title"><%= season.name %></h2>
-    <p>Year: <%= season.year %></p>
-
-    <div class="card-actions justify-end">
-      <%= link_to "View", season_path(season), class: "btn btn-primary btn-sm" %>
-      <%= link_to "Edit", edit_season_path(season), class: "btn btn-ghost btn-sm" %>
-      <%= button_to "Delete", season_path(season), method: :delete, class: "btn btn-error btn-sm", form: { data: { turbo_confirm: "Are you sure?" } } %>
-    </div>
-  </div>
+<div>
+  <div><%= season.name %></div>
+  <div class="text-xs uppercase font-semibold opacity-60"><%= season.year %></div>
 </div>
-
+<div class="card-actions justify-end">
+  <%= link_to "View", season_path(season), class: "btn btn-primary btn-sm" %>
+  <%= link_to "Edit", edit_season_path(season), class: "btn btn-ghost btn-sm" %>
+  <%= button_to "Delete", season_path(season), method: :delete, class: "btn btn-error btn-sm", form: { data: { turbo_confirm: "Are you sure?" } } %>
+</div>
