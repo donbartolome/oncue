@@ -26,10 +26,11 @@ class Studio < ApplicationRecord
     person.studio_memberships.create(role: :owner, studio: self)
   end
 
+  def create_season(name, start_year, end_year)
     self.seasons.create(
       name: name,
-      start_year: start_date.year,
-      end_year: end_date.year
+      start_year: start_year,
+      end_year: end_year
     )
   end
 end
