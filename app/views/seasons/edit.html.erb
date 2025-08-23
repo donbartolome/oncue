@@ -1,12 +1,12 @@
 <% content_for :title, "Edit Season" %>
 
-<div class="mb-6">
-  <h1 class="text-3xl font-bold">Edit Season</h1>
+<h1 class="text-2xl font-bold mb-6">Edit Season</h1>
+
+<div class="flex justify-between items-center">
+  <div>
+    <%= link_to "← Back to Seasons", studio_seasons_path(@season.studio), class: "btn btn-ghost mr-2" %>
+  </div>
 </div>
 
-<div class="mb-4">
-  <%= link_to "← Back to Season", season_path(@season), class: "link" %>
-</div>
-
-<%= render "form", season: @season, studio: nil %>
+<%= render "form", season: @season, studio: @season.studio %>
 
