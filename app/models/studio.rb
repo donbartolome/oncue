@@ -1,7 +1,7 @@
 class Studio < ApplicationRecord
   has_many :studio_memberships, dependent: :destroy
   has_many :people, through: :studio_memberships
-  has_many :seasons, dependent: :destroy
+  has_many :seasons, -> { order(end_year: :desc, start_year: :desc) }, dependent: :destroy
 
   validates :name, :address_line1, :city, :state, :zip_code, presence: true
   validates :name, uniqueness: { scope: [ :city, :state ], case_sensitive: false, message: "should be unique within the same city and state" }
