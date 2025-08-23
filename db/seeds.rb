@@ -22,6 +22,27 @@ avanti = Studio.find_or_create_by!(
   zip_code: "92626"
 )
 
+Season.find_or_create_by!(
+  name: "Season 9",
+  start_year: 2023,
+  end_year: 2024,
+  studio: avanti
+)
+
+Season.find_or_create_by!(
+  name: "Season 10",
+  start_year: 2024,
+  end_year: 2025,
+  studio: avanti
+)
+
+Season.find_or_create_by!(
+  name: "Season 11",
+  start_year: 2025,
+  end_year: 2026,
+  studio: avanti
+)
+
 people_data = [
   {
     first_name: "Taryn",
