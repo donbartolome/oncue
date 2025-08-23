@@ -39,7 +39,27 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference("Season.count") do
       post studio_seasons_url(@studio), params: { season: { name: "" } }
     end
-    assert_response :unprocessable_entity
+
+    assert_redirected_to new_studio_season_path
+    assert_match(/can't be blank/, flash[:alert])
+  end
+
+  test "does not create season when start_year is greater than end_year" do
+    sign_in_as(@user)
+
+    assert_no_difference("Season.count") do
+      post studio_seasons_url(@studio), params: {
+        season: {
+          name: "Invalid Season",
+          start_year: 2025,
+          end_year: 2024,
+          studio_id: @studio.id
+        }
+      }
+    end
+
+    assert_redirected_to new_studio_season_path
+    assert_match(/greater than end year/, flash[:alert])
   end
 
   # show

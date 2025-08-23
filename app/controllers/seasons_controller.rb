@@ -27,7 +27,7 @@ class SeasonsController < ApplicationController
     if @season.save
       redirect_to @season, notice: "Season was successfully created."
     else
-      render :new, status: :unprocessable_entity
+      redirect_to new_studio_season_path, alert: @season.errors.full_messages.to_sentence
     end
   end
 
