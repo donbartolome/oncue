@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       get "new_dancer"
       post "add_dancer"
     end
+
+    resources :seasons, shallow: true
   end
 
   # Defines the root path route ("/")

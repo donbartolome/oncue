@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_11_191408) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_09_002633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_191408) do
     t.string "last_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "seasons", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "start_year", null: false
+    t.integer "end_year", null: false
+    t.bigint "studio_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["studio_id"], name: "index_seasons_on_studio_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -61,6 +71,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_191408) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "seasons", "studios"
   add_foreign_key "sessions", "users"
   add_foreign_key "studio_memberships", "people"
   add_foreign_key "studio_memberships", "studios"

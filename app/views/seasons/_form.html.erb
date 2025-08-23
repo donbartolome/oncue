@@ -1,0 +1,21 @@
+<%= form_with(model: [@studio, @season], class: "space-y-4") do |form| %>
+  <div class="form-control">
+    <%= form.label :name, class: "label" %>
+    <%= form.text_field :name, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control">
+    <%= form.label :start_year, class: "label" %>
+    <%= form.number_field :start_year, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="form-control">
+    <%= form.label :end_year, class: "label" %>
+    <%= form.number_field :end_year, class: "input input-bordered w-full" %>
+  </div>
+
+  <div class="flex gap-2 mt-4">
+    <%= form.submit "Save", class: "btn btn-primary w-full sm:w-auto" %>
+    <%= link_to "Cancel", studios_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>

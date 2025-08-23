@@ -1,0 +1,43 @@
+<% content_for :title, @season.name %>
+
+<h1 class="text-2xl font-bold mb-6"><%= @season.studio.name %> - <%= @season.name %></h1>
+
+<div class="flex justify-between items-center">
+  <div>
+    <%= link_to "← Back to Seasons", studio_seasons_path(@season.studio), class: "btn btn-ghost mr-2" %>
+  </div>
+</div>
+
+<div class="card bg-base-100 shadow-xl mb-6">
+  <div class="card-body">
+    <h2 class="card-title">Season Details</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+      <div>
+        <p class="font-semibold">Name</p>
+        <p><%= @season.name %></p>
+      </div>
+
+      <div>
+        <p class="font-semibold">Year</p>
+        <p><%= @season.year %></p>
+      </div>
+    </div>
+
+    <div class="card-actions justify-end">
+      <%= link_to "Edit", edit_season_path(@season), class: "btn btn-primary" %>
+      <%= button_to "Delete", season_path(@season), method: :delete, class: "btn btn-error", form: { data: { turbo_confirm: "Are you sure?" } } %>
+    </div>
+  </div>
+</div>
+
+<div class="divider">Classes</div>
+
+<div class="flex justify-between items-center mb-4">
+  <h2 class="text-2xl font-bold">Classes</h2>
+  <%= link_to "Add Class", "#", class: "btn btn-primary" %>
+</div>
+
+<div id="classes">
+  <p class="text-center text-gray-500 my-8">No classes have been added to this season yet.</p>
+</div>
