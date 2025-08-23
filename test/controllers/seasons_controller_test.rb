@@ -42,6 +42,10 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to new_studio_season_path
     assert_match(/can't be blank/, flash[:alert])
+
+    @season.reload
+
+    assert_not_equal "", @season.name
   end
 
   test "does not create season when start_year is greater than end_year" do
@@ -51,8 +55,8 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
       post studio_seasons_url(@studio), params: {
         season: {
           name: "Invalid Season",
-          start_year: 2025,
-          end_year: 2024,
+          start_year: 3000,
+          end_year: 1000,
           studio_id: @studio.id
         }
       }
@@ -60,6 +64,11 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to new_studio_season_path
     assert_match(/greater than end year/, flash[:alert])
+
+    @season.reload
+
+    assert_not_equal 3000, @season.start_year
+    assert_not_equal 1000, @season.end_year
   end
 
   # show
@@ -106,9 +115,32 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as(@user)
 
     patch season_url(@season), params: { season: { name: "" } }
-    assert_response :unprocessable_entity
+
+    assert_redirected_to edit_season_path
+    assert_match(/can't be blank/, flash[:alert])
+
     @season.reload
+
     assert_not_equal "", @season.name
+  end
+
+  test "does not update season when start_year is greater than end_year" do
+    sign_in_as(@user)
+
+    patch season_url(@season), params: {
+      season: {
+        start_year: 3000,
+        end_year: 1000
+      }
+    }
+
+    assert_redirected_to edit_season_path
+    assert_match(/greater than end year/, flash[:alert])
+
+    @season.reload
+
+    assert_not_equal 3000, @season.start_year
+    assert_not_equal 1000, @season.end_year
   end
 
   test "returns 404 for update with invalid id" do

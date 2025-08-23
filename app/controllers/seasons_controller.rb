@@ -36,7 +36,7 @@ class SeasonsController < ApplicationController
     if @season.update(season_params)
       redirect_to @season, notice: "Season was successfully updated."
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to edit_season_path, alert: @season.errors.full_messages.to_sentence
     end
   end
 
