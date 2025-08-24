@@ -166,4 +166,79 @@ class SeasonsControllerTest < ActionDispatch::IntegrationTest
     delete season_url(-1)
     assert_response :not_found
   end
+
+  test "renders select_dancer" do
+    sign_in_as(@user)
+
+    dancers = create_list(:person, 3)
+    dancers.each do |dancer|
+      @season.studio.add_dancer(dancer)
+      @season.add_dancer(dancer)
+    end
+
+    @season.reload
+
+    get select_dancer_season_url(@season)
+    assert_response :success
+    assert_equal dancers, @season.get_dancers
+  end
+
+  test "returns 404 for select_dancer with invalid id" do
+    sign_in_as(@user)
+
+    assert_no_difference("@studio.people.count") do
+      get select_dancer_season_url(-1)
+    end
+
+    assert_response :not_found
+  end
+
+  test "adds dancer to season" do
+    sign_in_as(@user)
+
+    dancer = create(:person)
+    @season.studio.add_dancer(dancer)
+
+    assert_difference("@season.get_dancers.count") do
+      post add_dancer_season_url(@season), params: { person_id: dancer.id }
+    end
+
+    assert_redirected_to season_path(@season)
+    assert_match(/successfully added/, flash[:notice])
+  end
+
+  test "does not add dancer to season if dancer is not a member of the studio" do
+    sign_in_as(@user)
+
+    dancer = create(:person)
+
+    assert_no_difference("@studio.people.count") do
+      post add_dancer_season_url(@season), params: { person_id: dancer.id }
+    end
+
+    assert_redirected_to select_dancer_season_path(@season)
+    assert_match(/must be a member of the studio/, flash[:alert])
+  end
+
+  test "returns 404 for add_dancer with invalid season id" do
+    sign_in_as(@user)
+
+    dancer = create(:person)
+
+    assert_no_difference("@studio.people.count") do
+      post add_dancer_season_url(-1), params: { person_id: dancer.id }
+    end
+
+    assert_response :not_found
+  end
+
+  test "returns 404 for add_dancer with invalid person id" do
+    sign_in_as(@user)
+
+    assert_no_difference("@studio.people.count") do
+      post add_dancer_season_url(@season), params: { person_id: -1 }
+    end
+
+    assert_response :not_found
+  end
 end

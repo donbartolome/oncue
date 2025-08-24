@@ -1,0 +1,24 @@
+<%#
+  Expects:
+    @season - current season
+    @studio - current studio (optional if @season.studio is available)
+    @dancers - people in studio not yet dancers in this season
+%>
+
+<h1 class="text-2xl font-bold mb-6">Add Dancer to <%= @season.name %></h1>
+
+<%= form_with url: add_dancer_season_path(@season), method: :post, local: true, class: "space-y-4" do |form| %>
+  <div class="form-control">
+    <%= form.label :person_id, "Select Dancer", class: "label" %>
+    <%= form.select :person_id,
+      options_from_collection_for_select(
+        @dancers, :id, :full_name
+      ),
+      { prompt: "Choose a dancer" },
+      class: "select select-bordered w-full" %>
+  </div>
+  <div class="flex gap-2 mt-4">
+    <%= form.submit "Add Dancer", class: "btn btn-primary w-full sm:w-auto" %>
+    <%= link_to "Cancel", season_path(@season), class: "btn btn-ghost" %>
+  </div>
+<% end %>

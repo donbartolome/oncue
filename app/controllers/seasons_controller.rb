@@ -47,6 +47,22 @@ class SeasonsController < ApplicationController
     redirect_to studio_seasons_path(@season.studio), status: :see_other, notice: "Season was successfully destroyed."
   end
 
+  def select_dancer
+    @season = Season.find(params[:id])
+    @dancers = @season.get_eligible_dancers
+  end
+
+  def add_dancer
+    @season = Season.find(params[:id])
+    @dancer = Person.find(params[:person_id])
+
+    if @season.add_dancer(@dancer)
+      redirect_to season_path(@season), notice: "Dancer was successfully added to the season."
+    else
+      redirect_to select_dancer_season_path(@season), alert: @season.errors.full_messages.to_sentence
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_season

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_09_002633) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_24_020632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_09_002633) do
     t.string "last_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "season_memberships", force: :cascade do |t|
+    t.bigint "season_id", null: false
+    t.bigint "person_id", null: false
+    t.integer "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_season_memberships_on_person_id"
+    t.index ["season_id", "person_id", "role"], name: "index_season_memberships_on_season_id_and_person_id_and_role", unique: true
+    t.index ["season_id"], name: "index_season_memberships_on_season_id"
   end
 
   create_table "seasons", force: :cascade do |t|
@@ -71,6 +82,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_09_002633) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  add_foreign_key "season_memberships", "people"
+  add_foreign_key "season_memberships", "seasons"
   add_foreign_key "seasons", "studios"
   add_foreign_key "sessions", "users"
   add_foreign_key "studio_memberships", "people"
