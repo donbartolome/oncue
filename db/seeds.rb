@@ -50,26 +50,26 @@ people_data = [
   {
     first_name: "Taryn",
     last_name: "Chavez",
-    studio_roles: [[:owner, avanti]],
+    studio_roles: [ [ :owner, avanti ] ],
     season_roles: []
   },
   {
     first_name: "Ailah",
     last_name: "Medina",
-    studio_roles: [[:dancer, avanti]],
-    season_roles: [[:dancer, "Season 9"], [:dancer, "Season 10"], [:dancer, "Season 11"]]
+    studio_roles: [ [ :dancer, avanti ] ],
+    season_roles: [ [ :dancer, "Season 9" ], [ :dancer, "Season 10" ], [ :dancer, "Season 11" ] ]
   },
   {
     first_name: "Aurelia",
     last_name: "Coker",
-    studio_roles: [[:dancer, avanti]],
-    season_roles: [[:dancer, "Season 10"]]
+    studio_roles: [ [ :dancer, avanti ] ],
+    season_roles: [ [ :dancer, "Season 10" ] ]
   },
   {
     first_name: "Kylie Sophia",
     last_name: "Bartolome",
-    studio_roles: [[:dancer, avanti]],
-    season_roles: [[:dancer, "Season 9"], [:dancer, "Season 10"], [:dancer, "Season 11"]]
+    studio_roles: [ [ :dancer, avanti ] ],
+    season_roles: [ [ :dancer, "Season 9" ], [ :dancer, "Season 10" ], [ :dancer, "Season 11" ] ]
   }
 ]
 
