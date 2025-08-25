@@ -30,9 +30,7 @@ class Season < ApplicationRecord
   end
 
   def get_eligible_dancers
-    self.studio.get_dancers
-        .joins(sprintf("LEFT OUTER JOIN season_memberships ON people.id = season_memberships.person_id AND season_memberships.season_id = %d AND season_memberships.role = %d", self.id, SeasonMembership.roles[:dancer]))
-        .where("season_memberships.id IS NULL")
+    self.studio.get_dancers.where.not(id: self.get_dancers)
   end
 
   def add_director(person)
