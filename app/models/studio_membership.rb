@@ -6,10 +6,11 @@ class StudioMembership < ApplicationRecord
     owner: 0,
     admin: 1,
     staff: 2,
-    instructor: 3,
-    choreographer: 4,
-    parent: 5,
-    dancer: 6
+    director: 3,
+    instructor: 4,
+    choreographer: 5,
+    parent: 6,
+    dancer: 7
   }
 
   validates :role, presence: true

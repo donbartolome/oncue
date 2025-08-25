@@ -16,6 +16,20 @@ class Studio < ApplicationRecord
     person.studio_memberships.create(role: :dancer, studio: self)
   end
 
+  def get_dancers
+    self.people.where("studio_memberships.role = ?", StudioMembership.roles[:dancer])
+  end
+
+  def add_director(person)
+    # Check if the person is already a director of this studio
+    if person.studio_memberships.where(studio_id: self.id, role: :director).exists?
+      errors.add(:base, "Person is already a director of this studio.")
+      return false
+    end
+
+    person.studio_memberships.create(role: :director, studio: self)
+  end
+
   def add_owner(person)
     # Check if the person is already an owner of this studio
     if person.studio_memberships.where(studio_id: self.id, role: :owner).exists?

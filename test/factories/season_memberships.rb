@@ -1,19 +1,11 @@
 FactoryBot.define do
-  factory :studio_membership do
+  factory :season_membership do
+    season
     person
-    studio
     role { :dancer }
 
-    trait :owner do
-      role { :owner }
-    end
-
-    trait :admin do
-      role { :admin }
-    end
-
-    trait :staff do
-      role { :staff }
+    trait :director do
+      role { :director }
     end
 
     trait :instructor do
@@ -22,10 +14,6 @@ FactoryBot.define do
 
     trait :choreographer do
       role { :choreographer }
-    end
-
-    trait :parent do
-      role { :parent }
     end
 
     trait :dancer do

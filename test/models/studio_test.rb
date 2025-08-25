@@ -97,6 +97,34 @@ class StudioTest < ActiveSupport::TestCase
     end
   end
 
+  test "add_director adds director role for person" do
+    @studio.save!
+
+    person = create(:person)
+
+    assert_difference -> { person.studio_memberships.where(studio: @studio, role: :director).count }, 1 do
+      result = @studio.add_director(person)
+
+      assert result.persisted?
+      assert_equal :director, result.role.to_sym
+      assert_equal @studio, result.studio
+    end
+  end
+
+  test "add_director does not add duplicate director role" do
+    @studio.save!
+
+    person = create(:person)
+    @studio.add_director(person)
+
+    assert_no_difference -> { person.studio_memberships.where(studio: @studio, role: :director).count } do
+      result = @studio.add_director(person)
+
+      assert_equal false, result
+      assert_includes @studio.errors[:base], "Person is already a director of this studio."
+    end
+  end
+
   test "add_owner adds owner role for person" do
     @studio.save!
 
@@ -123,5 +151,22 @@ class StudioTest < ActiveSupport::TestCase
       assert_equal false, result
       assert_includes @studio.errors[:base], "Person is already an owner of this studio."
     end
+  end
+
+  test "get_dancers returns only dancers for the studio" do
+    @studio.save!
+
+    dancer1 = create(:person)
+    dancer2 = create(:person)
+    director = create(:person)
+    @studio.add_dancer(dancer1)
+    @studio.add_dancer(dancer2)
+    @studio.add_director(director)
+
+    dancers = @studio.get_dancers
+    assert_includes dancers, dancer1
+    assert_includes dancers, dancer2
+    assert_not_includes dancers, director
+    assert_equal 2, dancers.count
   end
 end
